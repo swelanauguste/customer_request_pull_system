@@ -6,6 +6,7 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
+from django.views.generic.edit import FormMixin
 from hitcount.views import HitCountDetailView, HitCountMixin
 
 from .forms import CustomerRequestForm, CustomerRequestPullForm
@@ -20,9 +21,16 @@ class CustomerRequestListView(ListView):
         return CustomerRequest.unassigned_objects.all()
 
 
-class CustomerRequestDetailView(HitCountDetailView):
+class CustomerRequestDetailView(FormMixin, HitCountDetailView):
     model = CustomerRequest
+    form_class = CustomerRequestPullForm
+    success_url = reverse_lazy("list")
     count_hit = True
+    
+    def form_valid(self, form):
+        form.instance.assigned_to = self.request.user
+        form.instance.status = RequestStatus.objects.get(pk=2)
+        return super().form_valid(form)
 
 
 class CustomerRequestCreateView(CreateView):

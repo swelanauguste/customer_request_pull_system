@@ -9,16 +9,16 @@ Requests
 
 {% block content %}
 <div class="container py-3">
-    <h1>Requests</h1>
+    <h1>Requests ({{page_obj.paginator.count }})</h1>
     <hr>
     <div class="py-3">
         <table class="table table-sm table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">email</th>
+                    <th scope="col">tel</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,8 @@ Requests
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
                     <td>{{ob.customer_name}}</td>
-                    <td>Otto</td>
+                    <td>{{ob.customer_email}}</td>
+                    <td>{{ob.customer_telephone}}</td>
                     <td>
                         <a class="btn btn-sm btn-outline-success" href="{{ ob.get_pull_url }}">Pull</a>
                     </td>
