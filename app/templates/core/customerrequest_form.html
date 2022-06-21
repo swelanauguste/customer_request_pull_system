@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+{% block head_title %}
+{{object}}
+{% endblock head_title %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-3">
+    <form action=""
+        method="post">
+        <div class="py-3">
+            <button class="btn btn-lg btn-outline-success"
+                type="submit">Pull</button>
+        </div>
+        <hr>
+
+        <h1>{{object}}</h1>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{object.desc}}</p>
+                        <div class="text-end py-3">
+                            <small class="text-muted">
+                                {{object.updated_at}}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p>{{object.customer_email}}</p>
+                        <p>{{object.customer_telephone}}</p>
+                        <p>{{object.customer_name}}</p>
+                        <p>{{object.customer_ministry|title}}</p>
+                        <p>{{object.customer_department|title}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% csrf_token %}
+        {{form|crispy}}
+
+    </form>
+</div>
+
+
+{% endblock content %}
